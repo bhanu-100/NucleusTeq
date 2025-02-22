@@ -1,0 +1,158 @@
+Basic SQL Training Questions Answer
+
+
+
+-- Step 1: Create Database 
+CREATE DATABASE e_commerce;
+USE e_commerce;
+
+  -- Step 2: Create Tables 
+CREATE TABLE Customers (
+    customer_id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    email VARCHAR(50),
+    mobile VARCHAR(15)
+);
+
+CREATE TABLE Products (
+    id INT,
+    name VARCHAR(50) NOT NULL,
+    description VARCHAR(200),
+    price DECIMAL(10,2) NOT NULL,
+    category VARCHAR(50)
+);
+
+-- step 3:  Modify Tables
+ALTER TABLE Customers MODIFY name VARCHAR(50) NOT NULL;
+ALTER TABLE Customers MODIFY email VARCHAR(50) NOT NULL;
+ALTER TABLE Customers ADD UNIQUE (email);
+ALTER TABLE Customers ADD COLUMN age INT;
+
+ALTER TABLE Products CHANGE COLUMN id product_id INT;
+ALTER TABLE Products MODIFY product_id INT PRIMARY KEY AUTO_INCREMENT;
+ALTER TABLE Products MODIFY description TEXT;
+
+-- step 4: create order table 
+CREATE TABLE Orders (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    customer_id INT,
+    product_id INT,
+    quantity INT NOT NULL,
+    order_date DATE NOT NULL,
+    status ENUM('Pending', 'Success', 'Cancel'),
+    payment_method ENUM('Credit', 'Debit', 'UPI'),
+    total_amount DECIMAL(10,2) NOT NULL,
+    FOREIGN KEY (customer_id) REFERENCES Customers(customer_id),
+    FOREIGN KEY (product_id) REFERENCES Products(product_id)
+);
+
+-- step 5:  modify order table 
+ALTER TABLE Orders MODIFY status ENUM('Pending', 'Success', 'Cancel') DEFAULT 'Pending';
+ALTER TABLE Orders MODIFY payment_method ENUM('Credit', 'Debit', 'UPI', 'COD');
+ALTER TABLE Orders ADD FOREIGN KEY (product_id) REFERENCES Products(product_id);
+
+--  step 6: Insert some sample records in all the tables.
+
+INSERT INTO Customers (name, email, mobile, age) VALUES 
+('John Doe', 'john@example.com', '1234567890', 25),
+('Jane Smith', 'jane@example.com', '0987654321', 30),
+('Alice Johnson', 'alice@example.com', '2345678901', 28),
+('Bob Brown', 'bob@example.com', '3456789012', 35),
+('Charlie White', 'charlie@example.com', '4567890123', 40),
+('David Green', 'david@example.com', '5678901234', 22),
+('Emily Adams', 'emily@example.com', '6789012345', 27),
+('Frank Carter', 'frank@example.com', '7890123456', 32),
+('Grace Hall', 'grace@example.com', '8901234567', 29),
+('Henry Lee', 'henry@example.com', '9012345678', 31),
+('Isabella King', 'isabella@example.com', '0123456789', 26),
+('Jack Martin', 'jack@example.com', '1234509876', 37),
+('Katherine Scott', 'katherine@example.com', '2345609875', 24),
+('Liam Turner', 'liam@example.com', '3456709874', 33),
+('Mia Walker', 'mia@example.com', '4567809873', 36),
+('Noah Young', 'noah@example.com', '5678909872', 29),
+('Olivia Baker', 'olivia@example.com', '6789009871', 23),
+('Paul Harris', 'paul@example.com', '7890009870', 34),
+('Quinn Nelson', 'quinn@example.com', '8900009869', 28),
+('Rachel Moore', 'rachel@example.com', '9000009868', 21);
+
+
+INSERT INTO Products (name, description, price, category) VALUES 
+('Laptop', 'Gaming laptop', 799.99, 'Electronics'),
+('Smartphone', 'Latest model', 499.99, 'Electronics'),
+('Headphones', 'Noise-canceling', 99.99, 'Electronics'),
+('Keyboard', 'Mechanical keyboard', 69.99, 'Electronics'),
+('Mouse', 'Wireless mouse', 39.99, 'Electronics'),
+('Monitor', '27-inch 4K display', 299.99, 'Electronics'),
+('Tablet', '10-inch display', 199.99, 'Electronics'),
+('Smartwatch', 'Fitness tracking', 149.99, 'Electronics'),
+('Bluetooth Speaker', 'Portable speaker', 79.99, 'Electronics'),
+('Camera', 'Digital camera', 399.99, 'Electronics'),
+('Coffee Maker', 'Automatic machine', 89.99, 'Home Appliances'),
+('Vacuum Cleaner', 'Cordless vacuum', 149.99, 'Home Appliances'),
+('Microwave', 'Countertop microwave', 129.99, 'Home Appliances'),
+('Refrigerator', 'Double-door fridge', 899.99, 'Home Appliances'),
+('Washing Machine', 'Front-load washing machine', 499.99, 'Home Appliances'),
+('Sofa', 'Leather sofa', 699.99, 'Furniture'),
+('Dining Table', 'Wooden dining table', 349.99, 'Furniture'),
+('Chair', 'Ergonomic office chair', 119.99, 'Furniture'),
+('Bed', 'Queen-size bed frame', 599.99, 'Furniture'),
+('Bookshelf', '5-tier bookshelf', 99.99, 'Furniture');
+
+
+INSERT INTO Orders (customer_id, product_id, quantity, order_date, status, payment_method, total_amount) VALUES 
+(1, 2, 1, '2025-02-01', 'Success', 'Credit', 499.99),
+(3, 4, 2, '2025-02-02', 'Pending', 'UPI', 139.98),
+(5, 6, 1, '2025-02-03', 'Success', 'Debit', 299.99),
+(7, 8, 1, '2025-02-04', 'Success', 'Credit', 149.99),
+(9, 10, 2, '2025-02-05', 'Pending', 'COD', 799.98),
+(11, 12, 1, '2025-02-06', 'Success', 'UPI', 149.99),
+(13, 14, 1, '2025-02-07', 'Pending', 'Credit', 899.99),
+(15, 16, 1, '2025-02-08', 'Success', 'Debit', 699.99),
+(17, 18, 1, '2025-02-09', 'Success', 'Credit', 119.99),
+(19, 20, 1, '2025-02-10', 'Pending', 'COD', 99.99),
+(2, 1, 3, '2025-02-11', 'Success', 'Credit', 1499.97),
+(4, 3, 2, '2025-02-12', 'Pending', 'UPI', 279.98),
+(6, 5, 1, '2025-02-13', 'Success', 'Debit', 39.99),
+(8, 7, 2, '2025-02-14', 'Pending', 'Credit', 399.98),
+(10, 9, 1, '2025-02-15', 'Success', 'COD', 79.99),
+(12, 11, 3, '2025-02-16', 'Pending', 'UPI', 269.97),
+(14, 13, 2, '2025-02-17', 'Success', 'Credit', 259.98),
+(16, 15, 1, '2025-02-18', 'Pending', 'Debit', 499.99),
+(18, 17, 2, '2025-02-19', 'Success', 'Credit', 699.98),
+(20, 19, 1, '2025-02-20', 'Pending', 'COD', 99.99);
+
+-- step 7: Perform following queries:
+ 
+SELECT category, COUNT(*) AS product_count FROM Products GROUP BY category;
+
+SELECT * FROM Products
+WHERE category = 'Electronics'
+AND price BETWEEN 50 AND 500
+AND name LIKE '%a%';
+
+SELECT * FROM Products
+WHERE category = 'Electronics'
+ORDER BY price DESC
+LIMIT 5 OFFSET 2;
+
+SELECT * FROM Customers
+WHERE customer_id NOT IN (SELECT DISTINCT customer_id FROM Orders);
+
+SELECT customer_id, AVG(total_amount) AS avg_spent
+FROM Orders GROUP BY customer_id;
+SELECT * FROM Products
+WHERE price < (SELECT AVG(price) FROM Products);
+
+SELECT customer_id, SUM(quantity) AS total_quantity
+FROM Orders GROUP BY customer_id;
+
+SELECT Orders.order_id, Customers.name AS customer_name, Products.name AS product_name, Orders.quantity, Orders.order_date, Orders.status
+FROM Orders
+JOIN Customers ON Orders.customer_id = Customers.customer_id
+JOIN Products ON Orders.product_id = Products.product_id;
+
+SELECT * FROM Products
+WHERE product_id NOT IN (SELECT DISTINCT product_id FROM Orders);
+
+
+
