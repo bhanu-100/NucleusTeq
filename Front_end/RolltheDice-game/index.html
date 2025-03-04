@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dice Roll Game</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+    <header class="header">
+        <button id="resetBtn" class="btn">🔄 Reset Game</button>
+    </header>
+
+    <main class="game-container">
+        <section class="player-box" id="player1Box">
+            <div class="img-container">
+                <img src="player1.jpg" alt="Player 1 Avatar" id="player1Img">
+            </div>
+            <div class="player-info">
+                <input type="text" class="player-name" id="player1Name" value="Player 1">
+                <p class="score-label">Saved Score: <span class="score" id="player1Score">0</span></p>
+            </div>
+        </section>
+
+        <section class="dice-box">
+            <div class="img-container">
+                <img src="face1.png" alt="Dice Face" id="diceImg">
+            </div>
+            <p class="current-score-label">Current Score: <span class="score" id="diceVal">0</span></p>
+        </section>
+
+        <section class="player-box" id="player2Box">
+            <div class="img-container">
+                <img src="player2.jpg" alt="Player 2 Avatar" id="player2Img">
+            </div>
+            <div class="player-info">
+                <input type="text" class="player-name" id="player2Name" value="Player 2">
+                <p class="score-label">Saved Score: <span class="score" id="player2Score">0</span></p>
+            </div>
+        </section>
+    </main>
+
+    <footer class="controls">
+        <button id="rollBtn" class="btn">🎲 Roll Dice</button>
+        <button id="saveBtn" class="btn">💾 Save Score</button>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>
