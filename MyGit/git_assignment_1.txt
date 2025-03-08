@@ -1,195 +1,65 @@
-
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git init NucleusTeq
-Initialized empty Git repository in C:/Users/bhanu/myfile/learnGit/NucleusTeq/.git/
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> cd .\my-git\
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq\my-git>
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch
-* master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch feature
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch
-  feature
-* master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git switch feature
-Switched to branch 'feature'
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch
-* feature
-  master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> New-Item header.html
+GIT ASSIGNMENT-1
 
 
-    Directory: C:\Users\bhanu\myfile\learnGit\NucleusTeq
+1.Create a New Repository
+->Git init gitassignment1
+->cd gitassignment1
+
+2.Create a New File
+-> echo "hello,this is my first git assignment." > file.txt
+->git status
+->git add file.txt
+->git commit -m "Added first assignment"
+
+3.Create a Branch
+->git branch secondary
+->git switch secondary
+->git branch
+
+4.Make Changes in the New Branch
+->$ echo "this is my second file in git assignment" > docs.txt
+->git add .
+->git commit -m “Added docs.txt in secondary branch”
+
+5.Create Another Branch (Optional)
+->git checkout -b third
+->git branch
+
+6.Merge Branches
+->git checkout master
+->git branch
+->git merge secondary
+
+7.Pull Changes from Remote
+->git remote -v
+->git remote add origin https://github.com/bhanu-100/gitassignment1.git
+->git branch -r
+->git push -u origin master
+->git pull origin master
+
+8.View Git Log and History
+->git log
+->git log --online --graph --all
+
+9.Git Status and Staging
+->git status
+->echo “this is third file” > third.txt
+->git status
+->git add .
+->git status
+->git commit -m “Added third file”
+->git push -u origin master
+->git status
+
+10.Revert and Reset
+->git log --online --graph --all
+->git revert 4396d28
+->git commit "wrong commit"
+->git reset --soft HEAD~1
 
 
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        19-02-2025     16:40              0 header.html
 
 
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git status
-On branch feature
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        header.html
-        my-git-project/
-
-nothing added to commit but untracked files present (use "git add" to track)
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add header.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git commit -m "header is added"
-[feature 2f32633] header is added
- 1 file changed, 9 insertions(+)
- create mode 100644 header.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git status
-On branch feature
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        my-git-project/
-
-nothing added to commit but untracked files present (use "git add" to track)
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add .\my-git-project\
-error: 'my-git-project/' does not have a commit checked out
-fatal: adding files failed
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git push -u origin feature
-Enumerating objects: 4, done.
-Counting objects: 100% (4/4), done.
-Delta compression using up to 4 threads
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 348 bytes | 348.00 KiB/s, done.
-Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-remote:
-remote: Create a pull request for 'feature' on GitHub by visiting:
-remote:      https://github.com/bhanu-100/NucleusTeq/pull/new/feature
-remote:
-To https://github.com/bhanu-100/NucleusTeq.git
- * [new branch]      feature -> feature
-branch 'feature' set up to track 'origin/feature'.
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch bugfix
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git checkout bugfix
-Switched to branch 'bugfix'
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> New-Item footer.html
 
 
-    Directory: C:\Users\bhanu\myfile\learnGit\NucleusTeq
 
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        19-02-2025     16:44              0 footer.html
-
-
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add footer.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git commit -m "footer aadded in bugfix"
-[bugfix a51eaf2] footer aadded in bugfix
- 1 file changed, 3 insertions(+)
- create mode 100644 footer.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git push -u origin bugfix
-Enumerating objects: 4, done.
-Counting objects: 100% (4/4), done.
-Delta compression using up to 4 threads
-Compressing objects: 100% (3/3), done.
-Writing objects: 100% (3/3), 457 bytes | 457.00 KiB/s, done.
-Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
-remote:
-remote: Create a pull request for 'bugfix' on GitHub by visiting:
-remote:      https://github.com/bhanu-100/NucleusTeq/pull/new/bugfix
-remote:
-To https://github.com/bhanu-100/NucleusTeq.git
- * [new branch]      bugfix -> bugfix
-branch 'bugfix' set up to track 'origin/bugfix'.
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git branch
-* bugfix
-  feature
-  master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git checkout master
-Switched to branch 'master'
-Your branch is up to date with 'origin/master'.
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git merge feature
-Updating 479466b..2f32633
-Fast-forward
- header.html | 9 +++++++++
- 1 file changed, 9 insertions(+)
- create mode 100644 header.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git status
-On branch master
-Your branch is ahead of 'origin/master' by 1 commit.
-  (use "git push" to publish your local commits)
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        my-git-project/
-
-nothing added to commit but untracked files present (use "git add" to track)
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git push origin master
-Total 0 (delta 0), reused 0 (delta 0), pack-reused 0
-To https://github.com/bhanu-100/NucleusTeq.git
-   479466b..2f32633  master -> master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git pull origin master
-From https://github.com/bhanu-100/NucleusTeq
- * branch            master     -> FETCH_HEAD
-Already up to date.
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git log
-commit 2f32633a9cf35d34ec1dc997090085f17c16cc02 (HEAD -> master, origin/master, origin/feature, feature)
-Author: bhanu-100 <bhanusinghx100@gmail.com>
-Date:   Wed Feb 19 16:42:24 2025 +0530
-
-    header is added
-
-commit 479466ba56f277db94abc815c5d4ff850a3266e6
-Author: bhanu-100 <bhanusinghx100@gmail.com>
-Date:   Wed Feb 19 14:16:00 2025 +0530
-
-    add index to master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git log --oneline
-2f32633 (HEAD -> master, origin/master, origin/feature, feature) header is added
-479466b add index to master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git log --index.html
-fatal: unrecognized argument: --index.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git log -- index.html
-commit 479466ba56f277db94abc815c5d4ff850a3266e6
-Author: bhanu-100 <bhanusinghx100@gmail.com>
-Date:   Wed Feb 19 14:16:00 2025 +0530
-
-    add index to master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git status
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-        my-git-project/
-
-nothing added to commit but untracked files present (use "git add" to track)
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> New-Item home.html
-
-
-    Directory: C:\Users\bhanu\myfile\learnGit\NucleusTeq
-
-
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a----        19-02-2025     16:49              0 home.html
-
-
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add home.html
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add.
-git: 'add.' is not a git command. See 'git --help'.
-
-The most similar command is
-        add
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git add .
-error: 'my-git-project/' does not have a commit checked out
-fatal: adding files failed
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git reset --hard HEAD~1
-HEAD is now at 479466b add index to master
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git reset --soft HEAD~1
-fatal: ambiguous argument 'HEAD~1': unknown revision or path not in the working tree.
-Use '--' to separate paths from revisions, like this:
-'git <command> [<revision>...] -- [<file>...]'
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq> git revert <commit-hash>
-At line:1 char:12
-+ git revert <commit-hash>
-+            ~
-The '<' operator is reserved for future use.
-    + CategoryInfo          : ParserError: (:) [], ParentContainsErrorRecordException
-    + FullyQualifiedErrorId : RedirectionNotSupported
-
-PS C:\Users\bhanu\myfile\learnGit\NucleusTeq>
