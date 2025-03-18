@@ -1,0 +1,21 @@
+Primitive data types are the most basic data types available in a programming language. They are predefined by the language and named by a keyword. Examples of primitive data types include:
+
+- int: Represents an integer value. Example: int age = 25;
+- float: Represents a floating-point number. Example: float price = 19.99f;
+- char: Represents a single character. Example: char grade = 'A';
+- boolean: Represents a boolean value (true or false). Example: boolean isJavaFun = true;
+
+Reference data types, on the other hand, are more complex data types. They are created by the programmer and are used to store the address of an object. Examples of reference data types include:
+
+- String: Represents a sequence of characters. Example: String name = "John";
+- Arrays: Represents a collection of elements of the same type. Example: int[] numbers = {1, 2, 3, 4, 5};
+- Classes: Represents a blueprint for creating objects. Example: 
+    class Person {
+            String name;
+            int age;
+    }
+    Person person = new Person();
+    person.name = "Alice";
+    person.age = 30;
+
+In summary, primitive data types store simple values directly, while reference data types store references to objects.
