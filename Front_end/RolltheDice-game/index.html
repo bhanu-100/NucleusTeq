@@ -8,14 +8,18 @@
 </head>
 <body>
 
+    <!-- Header Section -->
     <header class="header">
         <button id="resetBtn" class="btn">🔄 Reset Game</button>
     </header>
 
+    <!-- Game Container -->
     <main class="game-container">
-        <section class="player-box" id="player1Box">
+
+        <!-- Player 1 Box -->
+        <section class="player-box active-player" id="player1Box">
             <div class="img-container">
-                <img src="player1.jpg" alt="Player 1 Avatar" id="player1Img">
+                <img src="src/player1.jpg" alt="Player 1 Avatar" id="player1Img">
             </div>
             <div class="player-info">
                 <input type="text" class="player-name" id="player1Name" value="Player 1">
@@ -23,24 +27,31 @@
             </div>
         </section>
 
+        <!-- Dice Box -->
         <section class="dice-box">
             <div class="img-container">
-                <img src="face1.png" alt="Dice Face" id="diceImg">
+                <img src="src/face1.png" alt="Dice Face" id="diceImg">
             </div>
             <p class="current-score-label">Current Score: <span class="score" id="diceVal">0</span></p>
         </section>
 
+        <!-- Player 2 Box -->
         <section class="player-box" id="player2Box">
             <div class="img-container">
-                <img src="player2.jpg" alt="Player 2 Avatar" id="player2Img">
+                <img src="src/player2.jpg" alt="Player 2 Avatar" id="player2Img">
             </div>
             <div class="player-info">
                 <input type="text" class="player-name" id="player2Name" value="Player 2">
                 <p class="score-label">Saved Score: <span class="score" id="player2Score">0</span></p>
             </div>
         </section>
+
     </main>
 
+    <!-- Winner Message -->
+    <div id="winnerMessage" class="winner-message"></div>
+
+    <!-- Controls -->
     <footer class="controls">
         <button id="rollBtn" class="btn">🎲 Roll Dice</button>
         <button id="saveBtn" class="btn">💾 Save Score</button>

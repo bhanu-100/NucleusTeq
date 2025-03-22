@@ -1,14 +1,15 @@
-
+/* General Styling */
 body {
-    background-color: rgb(19, 21, 61);
+    background-color: rgb(117, 123, 244);
     color: white;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-align: center;
-    overflow: hidden;
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
 }
 
+/* Button Styling */
 .btn {
     appearance: none;
     background-color: #1a1a1a;
@@ -34,7 +35,7 @@ body {
     transform: scale(1);
 }
 
-
+/* Header Section */
 .header {
     display: flex;
     justify-content: center;
@@ -42,30 +43,54 @@ body {
     background-color: #252850;
 }
 
-
+/* Game Container */
 .game-container {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    height: 75vh;
+    flex-wrap: wrap;
+    gap: 20px;
     padding: 20px;
 }
 
-
+/* Player & Dice Box Styling */
 .player-box, .dice-box {
     background: #222;
     padding: 20px;
     border-radius: 12px;
-    width: 250px;
+    max-width: 280px;
     text-align: center;
     box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.2);
+    flex: 1 1 250px;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Active Player Highlight */
+.active-player {
+    border: 3px solid #ffcc00;
+    box-shadow: 0px 0px 15px rgba(255, 204, 0, 0.8);
+}
+
+/* Dice Image */
+.dice-box img {
+    width: 100px;
+    height: 100px;
+    animation: rollDice 0.5s ease-in-out;
+}
+
+/* Dice Roll Animation */
+@keyframes rollDice {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+/* Image Container */
 .img-container {
     width: 100px;
     height: 100px;
     margin: auto;
-    border-radius: 50%;
+    border-radius: 20%;
     overflow: hidden;
     border: 3px solid white;
 }
@@ -76,14 +101,14 @@ body {
     object-fit: cover;
 }
 
-
+/* Score Labels */
 .score-label, .current-score-label {
     font-size: 20px;
     font-weight: bold;
     margin-top: 10px;
 }
 
-
+/* Player Name Input */
 .player-name {
     background: none;
     border: none;
@@ -95,16 +120,54 @@ body {
     font-weight: bold;
     outline: none;
     border-bottom: 2px solid white;
+    transition: border-bottom 0.3s ease-in-out;
 }
 
 .player-name:focus {
     border-bottom: 2px solid #ffcc00;
 }
 
-
+/* Controls Section */
 .controls {
     display: flex;
     justify-content: center;
     gap: 15px;
     padding: 20px;
+    flex-wrap: wrap;
+}
+
+/* Winner Message */
+.winner-message {
+    display: none;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffcc00;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 20px;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Fade-in animation for winner message */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: scale(0.8); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+/* Responsive Design for Small Screens */
+@media (max-width: 768px) {
+    .game-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .player-box, .dice-box {
+        width: 90%;
+        max-width: 320px;
+    }
+
+    .btn {
+        width: 100%;
+    }
 }
