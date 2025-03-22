@@ -1,5 +1,5 @@
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     text-align: center;
     background: linear-gradient(135deg, #667eea, #764ba2);
     color: #fff;
@@ -9,7 +9,20 @@ body {
     justify-content: center;
     align-items: center;
     height: 100vh;
+
+    /* Fix blurry font issue */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
 }
+
+@media screen and (max-width: 1024px) {
+    body {
+        font-size: 18px; /* Adjust as needed */
+        font-weight: 500; /* Helps improve sharpness */
+    }
+}
+
 
 .container {
     width: 90%;
