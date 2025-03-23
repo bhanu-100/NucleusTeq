@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html layout:decorate="layouts/defaultLayout" lang="en">
+<body>
+<div class="container" layout:fragment="content">
+    <h1 class="my-3">Employees Table</h1>
+
+    <a href="addEmployee" class="btn btn-success mb-3">
+        ➕ Add New Employee
+    </a>
+
+    <table class="table table-striped table-bordered">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Department</th>
+            <th scope="col">Email</th>
+            <th scope="col">Salary</th>
+            <th scope="col" class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.employeeId}">ABC123</td>
+            <td th:text="${employee.employeeName}">Bhanu Singh</td>
+            <td th:text="${employee.employeeDepartment}">Software Engineer</td>
+            <td th:text="${employee.employeeEmail}">Bhanu@gmail.com</td>
+            <td th:text="${employee.employeeSalary}">₹50,000</td>
+            <td class="text-center">
+                <a th:href="@{/editEmployee/{id}(id=${employee.employeeId})}" class="btn btn-primary btn-sm">✏️ Edit</a>
+                <a th:href="@{/deleteEmployee/{id}(id=${employee.employeeId})}" class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this employee?');">🗑 Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

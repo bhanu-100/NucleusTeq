@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html layout:decorate="layouts/defaultLayout" lang="en">
+<body>
+<div class="container" layout:fragment="content"
+     style="max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px; background-color: #f9f9f9; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+
+  <h2 class="text-center mb-4">Edit Employee</h2>
+
+  <form action="#" method="post" th:action="@{/updateEmployee}" th:object="${employee}">
+    <div class="row g-3">
+
+      <div class="col-md-12">
+        <label for="employeeId" class="form-label fw-bold">Employee ID</label>
+        <input type="text" id="employeeId" class="form-control" th:field="*{employeeId}" readonly>
+      </div>
+
+      <div class="col-md-12">
+        <label for="employeeName" class="form-label fw-bold">Name</label>
+        <input type="text" id="employeeName" class="form-control" th:field="*{employeeName}" required>
+      </div>
+
+      <div class="col-md-12">
+        <label for="employeeDepartment" class="form-label fw-bold">Department</label>
+        <input type="text" id="employeeDepartment" class="form-control" th:field="*{employeeDepartment}" required>
+      </div>
+
+      <div class="col-md-12">
+        <label for="employeeEmail" class="form-label fw-bold">Email</label>
+        <input type="email" id="employeeEmail" class="form-control" th:field="*{employeeEmail}" required>
+      </div>
+
+      <div class="col-md-12">
+        <label for="employeeSalary" class="form-label fw-bold">Salary</label>
+        <input type="number" id="employeeSalary" class="form-control" th:field="*{employeeSalary}" required>
+      </div>
+
+      <div class="col-12 text-center mt-3">
+        <button type="submit" class="btn btn-primary w-100">💾 Save Changes</button>
+        <a href="/home" class="btn btn-secondary w-100 mt-2">↩️ Cancel</a>
+      </div>
+
+    </div>
+  </form>
+
+</div>
+</body>
+</html>

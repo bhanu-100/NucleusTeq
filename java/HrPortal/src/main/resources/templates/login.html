@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html layout:decorate="layouts/defaultLayout" lang="en">
+<body>
+<div class="container" layout:fragment="content"
+     style="max-width: 400px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; border-radius: 8px;">
+    <h2 class="text-center">Login</h2>
+    <form action="#" method="post" th:action="@{home}" th:object="${HrModel}">
+        <div class="mb-3">
+            <label for="email" class="form-label">Email address</label>
+            <input th:field="*{email}" type="email" class="form-control" id="email" required>
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input th:field="*{password}" type="password" class="form-control" id="password" required>
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></p>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Submit</button>
+    </form>
+</div>
+
+</body>
+</html>
