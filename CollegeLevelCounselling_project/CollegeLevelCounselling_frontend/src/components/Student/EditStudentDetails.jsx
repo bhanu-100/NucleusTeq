@@ -82,7 +82,7 @@ const EditStudentDetails = () => {
               <input
                 type="text"
                 value={rank} 
-                onChange={(e)=>setRank(e.target.value)}
+                onChange={(e)=>setRank(parseInt(e.target.value))}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter rank"
                 required
@@ -118,6 +118,8 @@ const EditStudentDetails = () => {
               <option value={"Civil Engineering"}>Civil Engineering</option>
               <option value={"Electrical Engineering"}>Electrical Engineering</option>
               <option value={"Mechanical Engineering"}>Mechanical Engineering</option>
+              <option value={"Mining Engineering"}>Mining Engineering</option>
+              <option value={"Chemical Engineering"}>Chemical Engineering</option>
             </select>
           </div>
 
@@ -157,7 +159,7 @@ const EditStudentDetails = () => {
               <input
                 type="tel"
                 value={phoneno} 
-                onChange={(e)=>setPhoneno(e.target.value)}
+                onChange={(e)=>setPhoneno(parseInt(e.target.value))}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter phone number"
                 required
@@ -192,9 +194,9 @@ const EditStudentDetails = () => {
           <div>
             <label className="block text-gray-700 dark:text-gray-300 font-medium mb-1">Status</label>
             <select onChange={(e)=>setStatus(e.target.value)} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-              <option value="Admitted">Admitted</option>
-              <option value="Waiting">Waiting</option>
-              <option value="Rejected">Rejected</option>
+              <option value="pending">Waiting</option>
+              <option value="accept">Admitted</option>
+              <option value="reject">Rejected</option>
             </select>
           </div>
 

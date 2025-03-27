@@ -31,7 +31,7 @@ const VacantSeatTable = () => {
                 className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
               >
                 <td className="px-6 py-4">{seat.branch}</td>
-                <td className="px-6 py-4">{seat.seats}</td>
+                <td className="px-6 py-4">{seat.totalSeats}</td>
                 <td
                   className={`px-6 py-4 font-semibold ${
                     seat.vacantSeats > 10

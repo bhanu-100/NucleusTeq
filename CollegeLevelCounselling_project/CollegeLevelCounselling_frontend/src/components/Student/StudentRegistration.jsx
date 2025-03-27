@@ -62,7 +62,7 @@ useEffect(() => {
           {/* Rank */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Rank</label>
-           <input value={rank} onChange={(e)=>setRank(e.target.value)} type="text" placeholder="Enter your rank"
+           <input value={rank} onChange={(e)=>setRank(parseInt(e.target.value))} type="text" placeholder="Enter your rank"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
           </div>
 
@@ -93,6 +93,8 @@ useEffect(() => {
               <option value={"Civil Engineering"}>Civil Engineering</option>
               <option value={"Electrical Engineering"}>Electrical Engineering</option>
               <option value={"Mechanical Engineering"}>Mechanical Engineering</option>
+              <option value={"Mining Engineering"}>Mining Engineering</option>
+              <option value={"Chemical Engineering"}>Chemical Engineering</option>
             </select>
           </div>
 
@@ -123,7 +125,7 @@ useEffect(() => {
           {/* Phone Number */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Phone Number</label>
-            <input value={phoneno} onChange={(e)=>setPhoneno(e.target.value)} type="tel" placeholder="Enter your phone number"
+            <input value={phoneno} onChange={(e)=>setPhoneno(parseInt(e.target.value))} type="tel" placeholder="Enter your phone number"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
           </div>
 
