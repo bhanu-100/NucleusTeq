@@ -14,7 +14,7 @@ public class SeatServices implements SeatBussinessServicesInterface {
 
     @Override
     public List<SeatModel> getAllSeats() {
-       return seatRepo.findAll();
+        return seatRepo.findAll();
     }
 
     @Override

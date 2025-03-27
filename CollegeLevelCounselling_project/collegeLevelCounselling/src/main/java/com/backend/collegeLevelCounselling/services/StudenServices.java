@@ -1,13 +1,16 @@
 package com.backend.collegeLevelCounselling.services;
 
 import com.backend.collegeLevelCounselling.models.StudentModel;
+import com.backend.collegeLevelCounselling.models.UserModel;
 import com.backend.collegeLevelCounselling.repositories.StudentRepoInterface;
+import com.backend.collegeLevelCounselling.repositories.UserRepoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -17,7 +20,8 @@ public class StudenServices implements StudentBussinessServicesInterface {
     private StudentRepoInterface studentRepo;
     @Autowired
     private SeatBussinessServicesInterface seatServices;
-
+    @Autowired
+    private UserRepoInterface UserRepo;
 
     @Override
     public List<StudentModel> getTop15Students() {
@@ -44,7 +48,7 @@ public class StudenServices implements StudentBussinessServicesInterface {
         List<StudentModel> students = studentRepo.findAll();
 
         students = students.stream()
-                .filter(student -> "Pending".equalsIgnoreCase(student.getStatus()))
+                .filter(student -> "pending".equalsIgnoreCase(student.getStatus()))
                 .sorted(Comparator.comparingInt(StudentModel::getRank))
                 .collect(Collectors.toList());
 
@@ -117,6 +121,14 @@ public class StudenServices implements StudentBussinessServicesInterface {
     @Override
     public boolean saveStudent(StudentModel student) {
         if(student.getEmail()!=null){
+            System.out.println(student);
+            Optional<UserModel> user = UserRepo.findByEmail(student.getEmail());
+            if(user.isPresent()){
+                student.setUser_id(user.get().getId());
+            }
+            else{
+                student.setUser_id(null);
+            }
             studentRepo.save(student);
             return true;
         }
