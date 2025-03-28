@@ -32,7 +32,7 @@ public class StudentModel {
     @Column(nullable = false)
     private String status;
     @Column(nullable = false)
-    private Integer phoneno;
+    private String phoneno;
     @Column(nullable = false)
     private String address;
     @Column(nullable = false)

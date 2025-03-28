@@ -125,7 +125,7 @@ useEffect(() => {
           {/* Phone Number */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Phone Number</label>
-            <input value={phoneno} onChange={(e)=>setPhoneno(parseInt(e.target.value))} type="tel" placeholder="Enter your phone number"
+            <input value={phoneno} onChange={(e)=>setPhoneno(e.target.value)} type="tel" placeholder="Enter your phone number"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
           </div>
 

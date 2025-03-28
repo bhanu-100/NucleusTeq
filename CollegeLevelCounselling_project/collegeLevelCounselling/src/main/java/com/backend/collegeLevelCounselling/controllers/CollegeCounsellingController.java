@@ -42,6 +42,7 @@ public class CollegeCounsellingController {
     }
     @PostMapping("/studentRegistration")
     public ResponseEntity<Boolean>  studentRegistration(@RequestBody StudentModel student) {
+        System.out.println(student);
         return ResponseEntity.ok(studentServices.saveStudent(student));
     }
     @PostMapping("/editStudentDetails")

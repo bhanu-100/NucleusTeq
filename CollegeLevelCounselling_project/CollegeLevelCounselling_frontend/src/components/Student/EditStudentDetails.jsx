@@ -159,7 +159,7 @@ const EditStudentDetails = () => {
               <input
                 type="tel"
                 value={phoneno} 
-                onChange={(e)=>setPhoneno(parseInt(e.target.value))}
+                onChange={(e)=>setPhoneno(e.target.value)}
                 className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-lg bg-gray-50 dark:bg-gray-700 focus:ring-2 focus:ring-blue-500 focus:outline-none"
                 placeholder="Enter phone number"
                 required
