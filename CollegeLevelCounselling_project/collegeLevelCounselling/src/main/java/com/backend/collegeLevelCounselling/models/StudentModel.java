@@ -13,7 +13,6 @@ public class StudentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
     private Long user_id;
     @Column(nullable = false)
     private String fullName;

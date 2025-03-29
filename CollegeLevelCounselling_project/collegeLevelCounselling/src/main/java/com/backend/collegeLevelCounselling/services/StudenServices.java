@@ -121,7 +121,6 @@ public class StudenServices implements StudentBussinessServicesInterface {
     @Override
     public boolean saveStudent(StudentModel student) {
         if(student.getEmail()!=null){
-            System.out.println(student);
             Optional<UserModel> user = UserRepo.findByEmail(student.getEmail());
             if(user.isPresent()){
                 student.setUser_id(user.get().getId());
