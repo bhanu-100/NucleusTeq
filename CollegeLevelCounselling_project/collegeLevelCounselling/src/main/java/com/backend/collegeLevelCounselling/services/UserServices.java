@@ -58,7 +58,7 @@ public class UserServices implements UserBussinessServicesInterface {
     public Map<String, String> findUser(Map<String, String> requestData) {
         Map<String, String> responseData = new HashMap<String, String>();
         Optional<UserModel> user = UserRepo.findByEmail(requestData.get("email"));
-        if (user.isPresent()) {
+        if (user.isPresent() && user.get().getRole().equals(requestData.get("role"))) {
             responseData.put("email", user.get().getEmail());
             responseData.put("fullName", user.get().getFullName());
             responseData.put("role", user.get().getRole());
