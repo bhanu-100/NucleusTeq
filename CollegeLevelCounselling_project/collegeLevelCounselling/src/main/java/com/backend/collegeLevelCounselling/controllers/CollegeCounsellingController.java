@@ -33,7 +33,7 @@ public class CollegeCounsellingController {
         return ResponseEntity.ok(userServices.forgotPassword(requestData));
     }
     @PostMapping("/signUp")
-    public ResponseEntity<Boolean> signUpn(@RequestBody UserModel user) {
+    public ResponseEntity<Boolean> signUp(@RequestBody UserModel user) {
         return ResponseEntity.ok(userServices.saveUser(user));
     }
     @PostMapping("/signIn")
