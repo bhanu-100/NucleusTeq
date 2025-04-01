@@ -3,6 +3,7 @@ import Fetch from "../../api/Fetch";
 
 const StudentStatus = () => {
   const [student, setStudent] = useState({}); // Initialize as an empty object
+  const [position, setPosition] = useState("");
 
   useEffect(() => {
     async function fetchData() {
@@ -17,8 +18,9 @@ const StudentStatus = () => {
 
       try {
         let response = await Fetch(data, "studentStatus");
-        setStudent(response || {}); // Ensure it's an object
-        console.log("API Response:", response);
+        setStudent(response.student.student || {}); // Ensure it's an object
+        setPosition(response.student.position || ""); // Set position if available
+        console.log("API Response:", response.student);
       } catch (error) {
         console.error("Error fetching student status:", error);
       }
@@ -43,6 +45,9 @@ const StudentStatus = () => {
             </p>
             <p className="text-lg text-gray-700 dark:text-gray-300">
               <strong>Branch:</strong> {student.branch || "N/A"}
+            </p>
+            <p className="text-lg text-gray-700 dark:text-gray-300">
+              <strong>Position:</strong> {position || "N/A"}
             </p>
             <p
               className={`text-lg font-semibold ${

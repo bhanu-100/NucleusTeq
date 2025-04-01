@@ -1,5 +1,6 @@
 package com.backend.collegeLevelCounselling.services;
 
+import com.backend.collegeLevelCounselling.models.Pair;
 import com.backend.collegeLevelCounselling.models.StudentModel;
 import com.backend.collegeLevelCounselling.models.UserModel;
 import com.backend.collegeLevelCounselling.repositories.StudentRepoInterface;
@@ -7,10 +8,7 @@ import com.backend.collegeLevelCounselling.repositories.UserRepoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -107,15 +105,53 @@ public class StudenServices implements StudentBussinessServicesInterface {
         return false;
     }
 
+
     @Override
-    public StudentModel getStudentDetails(Map<String, String> requestData) {
+    public Map<String, Pair<StudentModel, Integer>> getStudentDetails(Map<String, String> requestData) {
+        Map<String, Pair<StudentModel, Integer>> studentData = new HashMap<>();
         List<StudentModel> students = studentRepo.findAll();
+
+        // Separate students by status
+        List<StudentModel> acceptedStudents = new ArrayList<>();
+        List<StudentModel> pendingStudents = new ArrayList<>();
+        List<StudentModel> rejectedStudents = new ArrayList<>();
+
         for (StudentModel student : students) {
-            if (student.getEmail().equals(requestData.get("email"))) {
-                return  student;
+            switch (student.getStatus()) {
+                case "accept":
+                    acceptedStudents.add(student);
+                    break;
+                case "pending":
+                    pendingStudents.add(student);
+                    break;
+                case "rejected":
+                    rejectedStudents.add(student);
+                    break;
             }
         }
-        return null;
+
+        // Sort each list by rank
+        acceptedStudents.sort(Comparator.comparingInt(StudentModel::getRank));
+        pendingStudents.sort(Comparator.comparingInt(StudentModel::getRank));
+        rejectedStudents.sort(Comparator.comparingInt(StudentModel::getRank));
+
+        // Combine all the lists: accept -> pending -> reject
+        List<StudentModel> allSortedStudents = new ArrayList<>();
+        allSortedStudents.addAll(acceptedStudents);
+        allSortedStudents.addAll(pendingStudents);
+        allSortedStudents.addAll(rejectedStudents);
+
+        // Now find the student matching the requested email and assign the position
+        for (int i = 0; i < allSortedStudents.size(); i++) {
+            StudentModel student = allSortedStudents.get(i);
+            if (student.getEmail().equals(requestData.get("email"))) {
+                // Return the student with position (index + 1)
+                studentData.put("student", new Pair<>(student, i + 1)); // Position is index + 1
+                return studentData;
+            }
+        }
+
+        return null; // Return null if student is not found
     }
 
     @Override

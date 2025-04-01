@@ -1,5 +1,6 @@
 package com.backend.collegeLevelCounselling.services;
 
+import com.backend.collegeLevelCounselling.models.Pair;
 import com.backend.collegeLevelCounselling.models.StudentModel;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface StudentBussinessServicesInterface {
     boolean acceptStudent(String email);
     boolean rejectStudent(String email);
     boolean editStudentDetails(StudentModel student);
-    StudentModel getStudentDetails(Map<String, String> requestData);
+    Map<String, Pair<StudentModel,Integer>> getStudentDetails(Map<String, String> requestData);
 }

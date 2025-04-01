@@ -162,26 +162,43 @@ The **College Level Counselling (CLC) Portal** is a web-based application design
 - Java 17
 - PostgreSQL
 - Spring Boot
-- Node.js (Optional for frontend development)
+- React + vite
 
 ### **Setup Instructions**
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-repo-url.git
+   git clone https://github.com/Nucleusteq.git
    ```
 2. Navigate to the project directory:
    ```sh
-   cd clc-portal
+   cd CollegeLevelCounselling_project
    ```
-3. Install dependencies:
+3. Install dependencies in fronted and backend:
    ```sh
+   cd CollegeLevelCounselling_frontend
+   npm install
+   npm run dev
+   cd
+   cd  collegeLevelCounselling
    mvn install
    ```
 4. Configure the database in `application.properties`:
    ```properties
-   spring.datasource.url=jdbc:postgresql://localhost:5432/clc_db
-   spring.datasource.username=your_username
-   spring.datasource.password=your_password
+      spring.application.name=collegeLevelCounselling
+      # PostgreSQL Database Configuration
+      spring.datasource.url=jdbc:postgresql://localhost:5432/CollegeLevelCounselling
+      spring.datasource.username=your-username
+      spring.datasource.password=your-password
+      spring.datasource.driver-class-name=org.postgresql.Driver
+
+      # Hibernate & JPA Configuration
+      spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+      spring.jpa.hibernate.ddl-auto=update
+
+      spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration
+
+
+
    ```
 5. Run the application:
    ```sh
@@ -190,8 +207,6 @@ The **College Level Counselling (CLC) Portal** is a web-based application design
 
 ## **Contributors**
 - **Project Owner**: Pratham Joya
-- **Developers**: Bhanu Pratap Singh & Team
+- **Developers**: Bhanu Pratap Singh
 
-## **License**
-This project is licensed under the **MIT License**.
 

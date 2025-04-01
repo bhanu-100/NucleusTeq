@@ -1,5 +1,6 @@
 package com.backend.collegeLevelCounselling.controllers;
 
+import com.backend.collegeLevelCounselling.models.Pair;
 import com.backend.collegeLevelCounselling.models.SeatModel;
 import com.backend.collegeLevelCounselling.models.StudentModel;
 import com.backend.collegeLevelCounselling.models.UserModel;
@@ -25,7 +26,7 @@ public class CollegeCounsellingController {
     private SeatBussinessServicesInterface seatServices;
 
     @PostMapping("/studentStatus")
-    public ResponseEntity<StudentModel> StudentStatus(@RequestBody Map<String, String> requestData) {
+    public ResponseEntity<Map<String,Pair<StudentModel,Integer>>> StudentStatus(@RequestBody Map<String, String> requestData) {
         return ResponseEntity.ok(studentServices.getStudentDetails(requestData));
     }
     @PostMapping("/forgot")
