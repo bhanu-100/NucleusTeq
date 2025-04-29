@@ -3,7 +3,7 @@ import StudentTable from "../Table/StudentTable";
 import { useState } from "react";
 import FetchApi from "../../api/Fetch";
 
-const AdmissionOfficer = () => {
+const updateSeats = () => {
   const [branch, setBranch] = useState("Computer Engineering")
   const [seats,setSeats] = useState("00")
    
@@ -73,16 +73,8 @@ const AdmissionOfficer = () => {
           </div>
         </div>
       </div>
-
-      {/* Table Section */}
-      <div className="mt-12">
-        <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-300 text-center mb-4">
-          📋 Student Applications
-        </h2>
-        <StudentTable />
-      </div>
     </div>
   );
 };
 
-export default AdmissionOfficer;
+export default updateSeats;

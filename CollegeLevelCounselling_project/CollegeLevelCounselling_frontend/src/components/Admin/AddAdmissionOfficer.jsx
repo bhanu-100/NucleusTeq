@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import FetchApi from "../../api/Fetch"
 import { Link, useNavigate } from "react-router";
 
-const SignUp = () => {
+const AddadmissionOfficer = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fullName: "",
     email: "",
     password: "",
-    role:"student",
+    role:"admissionOfficer",
   });
 
   const [errors, setErrors] = useState({});
@@ -23,7 +22,6 @@ const SignUp = () => {
     e.preventDefault();
     let validationErrors = {};
 
-    if (!formData.fullName.trim()) validationErrors.fullName = "Name is required.";
     if (!formData.email.includes("@")) validationErrors.email = "Invalid email.";
     if (formData.password.length < 6)
       validationErrors.password = "Password must be at least 6 characters.";
@@ -31,10 +29,10 @@ const SignUp = () => {
     setErrors(validationErrors);
 
     if (Object.keys(validationErrors).length === 0) {
-      let response = await FetchApi(formData,"signUp")
+      let response = await FetchApi(formData,"addAdmissionOfficer")
       console.log(formData);
       console.log(response)
-      navigate("/signIn");
+      alert("Admission Officer added successfully!")
     }
   };
 
@@ -42,28 +40,11 @@ const SignUp = () => {
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
       <div className="w-full max-w-sm bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-700 dark:text-gray-300 mb-4">
-          🔐 Sign Up
+          🔐 Add AdmissionOfficer
         </h2>
 
         <form className="space-y-4" onSubmit={handleSubmit}>
-          {/* Name Field */}
-          <div>
-            <label className="block text-gray-700 dark:text-gray-300 font-medium">
-              Name
-            </label>
-            <input
-              type="text"
-              name="fullName"
-              value={formData.fullName}
-              onChange={handleChange}
-              className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 ${
-                errors.fullName ? "border-red-500" : "border-gray-300 dark:border-gray-600"
-              }`}
-              placeholder="Enter your fullName"
-            />
-            {errors.fullName && <p className="text-red-500 text-sm">{errors.fullName}</p>}
-          </div>
-
+       
           {/* Email Field */}
           <div>
             <label className="block text-gray-700 dark:text-gray-300 font-medium">
@@ -107,7 +88,7 @@ const SignUp = () => {
             type="submit"
             className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition-all duration-200"
           >
-            Sign Up
+            Add AdmissionOfficer
           </button>
         </form>
       </div>
@@ -115,4 +96,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default AddadmissionOfficer;

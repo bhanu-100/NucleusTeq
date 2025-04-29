@@ -17,7 +17,7 @@ const OfficerTable = () => {
     const data = {email}
     const res = await FetchApi(data,"removeAdmissionOfficer")
     console.log(res);
-    alert("Admin remove successful!")
+    alert("Admission Officer remove successfully!")
     window.location.reload();
   };
 

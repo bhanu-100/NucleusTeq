@@ -7,6 +7,8 @@ function StudentRegistration() {
 
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("")
+  const [password, setPassword] = useState("")
+  const [role, setRole] = useState("Student")
   const [gender, setGender] = useState("male")
   const [category, setCategory] = useState("gen")
   const [branch, setBranch] = useState("Computer Engineering")
@@ -28,7 +30,7 @@ useEffect(() => {
 
    
   async function handleSubmit() {
-     const data = {fullName,gender,category,branch,status,rollno,rank,email,phoneno,address,fatherName,date};
+     const data = {fullName,password,gender,category,role,branch,status,rollno,rank,email,phoneno,address,fatherName,date};
      let res = await FetchApi(data,"studentRegistration") 
      console.log(data)
      console.log(res)
@@ -56,6 +58,18 @@ useEffect(() => {
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Roll Number</label>
             <input value={rollno} onChange={(e)=>setRollno(e.target.value)} type="text" placeholder="Enter your roll number"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
+          </div>
+          {/* Email */}
+          <div>
+            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
+            <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@domain.com"
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" readOnly />
+          </div>
+          {/* Password */}
+          <div>
+            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Password</label>   
+            <input value={password} onChange={(e)=>setPassword(e.target.value)} type="password" placeholder="Enter your password"
               className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
           </div>
 
@@ -115,13 +129,7 @@ useEffect(() => {
               
           </div>
 
-          {/* Email */}
-          <div>
-            <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
-            <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@domain.com"
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" readOnly />
-          </div>
-
+          
           {/* Phone Number */}
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Phone Number</label>

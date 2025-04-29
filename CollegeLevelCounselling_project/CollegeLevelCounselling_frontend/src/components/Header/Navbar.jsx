@@ -35,12 +35,13 @@ const Navbar = () => {
             {role === "" && (
               <>
                 <NavItem to="/signIn" text="Sign In" />
-                <NavItem to="/signUp" text="Sign Up" />
+                <NavItem to="/studentRegistration" text="Student Registration" />
               </>
             )}
             {role === "admin" && (
               <>
-                <NavItem to="/admin" text="Admin" />
+                <NavItem to="/addAdmissionOfficer" text="Add AdmissionOfficer" />
+                <NavItem to="/removeAdmissionOfficer" text="Remove AdmissionOfficer" />
                 <button onClick={handleLogout} className="text-gray-300 hover:text-red-500">
                   Log Out
                 </button>
@@ -48,7 +49,6 @@ const Navbar = () => {
             )}
             {role === "student" && (
               <>
-                <NavItem to="/studentRegistration" text="Student Registration" />
                 <NavItem to="/studentStatus" text="Student Status" />
                 <button onClick={handleLogout} className="text-gray-300 hover:text-red-500">
                   Log Out
@@ -57,7 +57,8 @@ const Navbar = () => {
             )}
             {role === "admissionOfficer" && (
               <>
-                <NavItem to="/admissionOfficer" text="Admission Officer" />
+                <NavItem to="/studentApplications" text="Student Applications" />
+                <NavItem to="/updateSeats" text="Update Seats" />
                 <button onClick={handleLogout} className="text-gray-300 hover:text-red-500">
                   Log Out
                 </button>

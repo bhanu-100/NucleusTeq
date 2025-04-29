@@ -3,10 +3,11 @@ import './index.css'
 import App from './App.jsx'
 import Home from "./components/Home/Home.jsx"
 import SignIn from "./components/SignIn/SignIn.jsx"
-import SignUp from './components/SignUp/Signup.jsx'
 import Forgot from './components/Forgot/Forgot.jsx'
-import AdmissionOfficer from "./components/AdmissionOfficer/AdmissionOfficer.jsx"
-import Admin from "./components/Admin/Admin.jsx"
+import UpdateSeats from './components/AdmissionOfficer/UpdateSeats.jsx'
+import StudentApplications from './components/AdmissionOfficer/StudentApplications.jsx'
+import AddAdmissionOfficer from "./components/Admin/AddAdmissionOfficer.jsx"
+import RemoveAdmissionOfficer from "./components/Admin/RemoveAdmissionOfficer.jsx"
 import EditStudentDetails from "./components/Student/EditStudentDetails.jsx"
 import StudentRegistration from "./components/Student/StudentRegistration.jsx"
 import StudentStatus from "./components/Student/StudentStatus.jsx"
@@ -26,16 +27,16 @@ const router = createBrowserRouter([
         element:<SignIn/>
       },
       {
-        path:"signUp",
-        element:<SignUp/>
-      },
-      {
         path:"forgot",
         element:<Forgot/>
       },
       {
-        path:"admin",
-        element:<Admin/>
+        path:"addAdmissionOfficer",
+        element:<AddAdmissionOfficer/>
+      },
+      {
+        path:"removeAdmissionOfficer",
+        element:<RemoveAdmissionOfficer/>
       },
       {
         path:"studentRegistration",
@@ -50,8 +51,12 @@ const router = createBrowserRouter([
         element:<EditStudentDetails/>
       },
       {
-        path:"admissionOfficer",
-        element:<AdmissionOfficer/>
+        path:"updateSeats",
+        element:<UpdateSeats/>
+      },
+      {
+        path:"studentApplications",
+        element:<StudentApplications/>
       }
     ]
   }

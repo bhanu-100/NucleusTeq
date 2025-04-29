@@ -97,8 +97,8 @@ function SignIn() {
         {/* Register Link */}
         <div className="text-sm text-center text-gray-500 dark:text-gray-300 mt-4">
           Not registered?{" "}
-          <Link to="/signup" className="text-blue-700 hover:underline dark:text-blue-400">
-            Create an account
+          <Link to="/studentRegistration" className="text-blue-700 hover:underline dark:text-blue-400">
+            Student Registration
           </Link>
         </div>
       </div>
