@@ -140,26 +140,14 @@ public class StudenServices implements StudentBussinessServicesInterface {
         allSortedStudents.addAll(acceptedStudents);
         allSortedStudents.addAll(pendingStudents);
         allSortedStudents.addAll(rejectedStudents);
-       //find the branch of student
-        String branch=null;
+
+        // Now find the student matching the requested email and assign the position
         for (int i = 0; i < allSortedStudents.size(); i++) {
             StudentModel student = allSortedStudents.get(i);
             if (student.getEmail().equals(requestData.get("email"))) {
-                branch = student.getBranch();
-                break;
-            }
-        }
-        // Now find the student matching the requested email and assign the position
-        int cnt = 0;
-        for (int i = 0; i < allSortedStudents.size(); i++) {
-            StudentModel student = allSortedStudents.get(i);
-            if(student.getBranch().equals(branch)) {
-                cnt++;
-                if (student.getEmail().equals(requestData.get("email"))) {
-                    // Return the student with position (index + 1)
-                    studentData.put("student", new Pair<>(student, cnt)); // Position is index + 1
-                    return studentData;
-                }
+                // Return the student with position (index + 1)
+                studentData.put("student", new Pair<>(student, i + 1)); // Position is index + 1
+                return studentData;
             }
         }
 
