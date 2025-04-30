@@ -21,20 +21,13 @@ function StudentRegistration() {
   const [fatherName,setFatherName] = useState("")
   const [date,setDate] = useState("")
 
-useEffect(() => {
-  const data = JSON.parse(localStorage.getItem("user"));
-  if(data){
-    setEmail(data.email);
-  }
-}, [])
-
    
   async function handleSubmit() {
      const data = {fullName,password,gender,category,role,branch,status,rollno,rank,email,phoneno,address,fatherName,date};
      let res = await FetchApi(data,"studentRegistration") 
      console.log(data)
      console.log(res)
-     navigate("/studentStatus")
+     navigate("/signIn")
   }
 
   return (
@@ -64,7 +57,7 @@ useEffect(() => {
           <div>
             <label className="block mb-1 text-sm font-medium text-gray-900 dark:text-gray-300">Email</label>
             <input value={email} onChange={(e)=>setEmail(e.target.value)} type="email" placeholder="name@domain.com"
-              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" readOnly />
+              className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:text-white" />
           </div>
           {/* Password */}
           <div>

@@ -8,7 +8,6 @@ import java.util.Map;
 public interface UserBussinessServicesInterface {
     boolean saveUser(UserModel person);
     List<UserModel> getAllAdmissionOfficerUsers();
-    boolean addAdmissionOfficerByEmail(String email);
     boolean removeAdmissionOfficerByEmail(String email);
     Map<String,String> findUser(Map<String, String> requestData);
     Map<String,String> forgotPassword(Map<String, String> requestData);

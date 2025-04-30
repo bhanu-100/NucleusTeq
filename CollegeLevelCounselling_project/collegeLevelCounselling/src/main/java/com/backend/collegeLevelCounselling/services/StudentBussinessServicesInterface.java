@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface StudentBussinessServicesInterface {
-    boolean saveStudent(StudentModel student);
+    boolean saveStudent(Map<String, String> requestData);
     List<StudentModel> getTop15Students();
     List<StudentModel> getAllPendingStudents();
     boolean acceptStudent(String email);

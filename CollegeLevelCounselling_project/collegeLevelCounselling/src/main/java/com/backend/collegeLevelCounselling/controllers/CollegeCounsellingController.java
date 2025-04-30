@@ -25,6 +25,15 @@ public class CollegeCounsellingController {
     @Autowired
     private SeatBussinessServicesInterface seatServices;
 
+    @PostMapping("/studentRegistration")
+    public ResponseEntity<Boolean>  studentRegistration(@RequestBody Map<String, String> requestData) {
+        return ResponseEntity.ok(studentServices.saveStudent(requestData));
+    }
+    @PostMapping("/addAdmissionOfficer")
+    public ResponseEntity<Boolean>  addAdmin(@RequestBody UserModel person) {
+        return ResponseEntity.ok(userServices.saveUser(person));
+    }
+    //
     @PostMapping("/studentStatus")
     public ResponseEntity<Map<String,Pair<StudentModel,Integer>>> StudentStatus(@RequestBody Map<String, String> requestData) {
         return ResponseEntity.ok(studentServices.getStudentDetails(requestData));
@@ -33,18 +42,11 @@ public class CollegeCounsellingController {
     public ResponseEntity<Map<String,String>> forgot(@RequestBody Map<String, String> requestData) {
         return ResponseEntity.ok(userServices.forgotPassword(requestData));
     }
-    @PostMapping("/signUp")
-    public ResponseEntity<Boolean> signUp(@RequestBody UserModel user) {
-        return ResponseEntity.ok(userServices.saveUser(user));
-    }
     @PostMapping("/signIn")
     public ResponseEntity<Map<String,String>> signIn(@RequestBody Map<String, String> requestData) {
         return ResponseEntity.ok(userServices.findUser(requestData));
     }
-    @PostMapping("/studentRegistration")
-    public ResponseEntity<Boolean>  studentRegistration(@RequestBody StudentModel student) {
-        return ResponseEntity.ok(studentServices.saveStudent(student));
-    }
+
     @PostMapping("/editStudentDetails")
     public ResponseEntity<Boolean>  editStudentDetails(@RequestBody StudentModel student) {
         return ResponseEntity.ok(studentServices.editStudentDetails(student));
@@ -65,10 +67,7 @@ public class CollegeCounsellingController {
     public ResponseEntity<Boolean>  removeAdmin(@RequestBody Map<String, String> requestData) {
         return ResponseEntity.ok(userServices.removeAdmissionOfficerByEmail(requestData.get("email")));
     }
-    @PostMapping("/addAdmissionOfficer")
-    public ResponseEntity<Boolean>  addAdmin(@RequestBody Map<String, String> requestData) {
-        return ResponseEntity.ok(userServices.addAdmissionOfficerByEmail(requestData.get("email")));
-    }
+
     @GetMapping("/top15StudentTable")
     public ResponseEntity<List<StudentModel>> getTop15StudentTable() {
         return ResponseEntity.ok(studentServices.getTop15Students());

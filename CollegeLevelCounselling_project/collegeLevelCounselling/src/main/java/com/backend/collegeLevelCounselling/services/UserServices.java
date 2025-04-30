@@ -28,26 +28,13 @@ public class UserServices implements UserBussinessServicesInterface {
         }
         return admissionOfficerUsers;
     }
-
-    @Override
-    public boolean addAdmissionOfficerByEmail(String email) {
-        List<UserModel> users= UserRepo.findAll();
-        for (UserModel user : users) {
-            if (user.getEmail().equals(email)) {
-                user.setRole("admissionOfficer");//update into database
-                UserRepo.save(user);
-                return true;
-            }
-        }
-        return false;
-    }
+    
     @Override
     public boolean removeAdmissionOfficerByEmail(String email) {
         List<UserModel> users= UserRepo.findAll();
         for (UserModel user : users) {
             if (user.getEmail().equals(email)) {
-                user.setRole("student");//update into database
-                UserRepo.save(user);
+                UserRepo.delete(user);
                 return true;
             }
         }

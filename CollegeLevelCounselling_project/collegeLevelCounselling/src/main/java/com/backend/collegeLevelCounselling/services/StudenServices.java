@@ -8,6 +8,7 @@ import com.backend.collegeLevelCounselling.repositories.UserRepoInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -155,18 +156,33 @@ public class StudenServices implements StudentBussinessServicesInterface {
     }
 
     @Override
-    public boolean saveStudent(StudentModel student) {
-        if(student.getEmail()!=null){
-            Optional<UserModel> user = UserRepo.findByEmail(student.getEmail());
-            if(user.isPresent()){
-                student.setUser_id(user.get().getId());
-            }
-            else{
-                student.setUser_id(null);
-            }
-            studentRepo.save(student);
-            return true;
-        }
+    public boolean saveStudent(Map<String, String> requestData) {
+        StudentModel student = new StudentModel();
+        UserModel user = new UserModel();
+       if (requestData.get("email") != null) {
+
+           student.setEmail(requestData.get("email"));
+           student.setFullName(requestData.get("fullName"));
+           student.setPhoneno(requestData.get("phoneno"));
+           student.setRollno(requestData.get("rollno"));
+           student.setCategory(requestData.get("category"));
+           student.setAddress(requestData.get("address"));
+           student.setGender(requestData.get("gender"));
+           student.setBranch(requestData.get("branch"));
+           student.setStatus(requestData.get("status"));
+           student.setDate(LocalDate.parse(requestData.get("date")));
+           student.setFatherName(requestData.get("fatherName"));
+           student.setRank(Integer.parseInt(requestData.get("rank")));
+           student.setUser_id(null);
+           studentRepo.save(student);
+            user.setEmail(requestData.get("email"));
+            user.setPassword(requestData.get("password"));
+            user.setFullName(requestData.get("fullName"));
+            user.setRole(requestData.get("role"));
+           UserRepo.save(user);
+
+           return true;
+       }
         return false;
     }
 }
