@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router";
 const AddadmissionOfficer = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    fullName: "",
     email: "",
     password: "",
     role:"admissionOfficer",
@@ -21,7 +22,7 @@ const AddadmissionOfficer = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     let validationErrors = {};
-
+    if (!formData.fullName) validationErrors.fullName = "Full Name is required.";
     if (!formData.email.includes("@")) validationErrors.email = "Invalid email.";
     if (formData.password.length < 6)
       validationErrors.password = "Password must be at least 6 characters.";
@@ -45,6 +46,26 @@ const AddadmissionOfficer = () => {
 
         <form className="space-y-4" onSubmit={handleSubmit}>
        
+          {/* Full Name Field */}
+          <div> 
+            <label className="block text-gray-700 dark:text-gray-300 font-medium">
+              Full Name
+            </label>
+            <input
+              type="text"
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange} 
+              className={`w-full p-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 ${
+                errors.fullName ? "border-red-500" : "border-gray-300 dark:border-gray-600"
+              }`}
+              placeholder="Enter your full name"
+            />
+            {errors.fullName && (
+              <p className="text-red-500 text-sm">{errors.fullName}</p>
+            )}
+          </div>
+
           {/* Email Field */}
           <div>
             <label className="block text-gray-700 dark:text-gray-300 font-medium">

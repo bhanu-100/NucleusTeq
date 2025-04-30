@@ -8,7 +8,7 @@ function StudentRegistration() {
   const navigate = useNavigate();
   const [fullName, setFullName] = useState("")
   const [password, setPassword] = useState("")
-  const [role, setRole] = useState("Student")
+  const [role, setRole] = useState("student")
   const [gender, setGender] = useState("male")
   const [category, setCategory] = useState("gen")
   const [branch, setBranch] = useState("Computer Engineering")
