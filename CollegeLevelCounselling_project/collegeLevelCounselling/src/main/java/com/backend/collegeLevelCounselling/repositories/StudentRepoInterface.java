@@ -8,6 +8,4 @@ import java.util.Optional;
 
 @RepositoryRestResource
 public interface StudentRepoInterface extends JpaRepository<StudentModel, Long> {
-    Optional<StudentModel> findByEmail(String email);
-
 }

@@ -8,5 +8,4 @@ import java.util.Optional;
 
 @RepositoryRestResource
 public interface SeatRepoInterface extends JpaRepository<SeatModel, Integer> {
-    Optional<SeatModel> findByBranch(String branch);
 }

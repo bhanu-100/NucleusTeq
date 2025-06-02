@@ -1,3 +1,21 @@
+package com.backend.collegeLevelCounselling.services;
+
+import com.backend.collegeLevelCounselling.models.Pair;
+import com.backend.collegeLevelCounselling.models.StudentModel;
+import com.backend.collegeLevelCounselling.models.UserModel;
+import com.backend.collegeLevelCounselling.repositories.StudentRepoInterface;
+import com.backend.collegeLevelCounselling.repositories.UserRepoInterface;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.*;
+
 @Service
 public class StudentServices implements StudentBussinessServicesInterface {
 
@@ -8,22 +26,23 @@ public class StudentServices implements StudentBussinessServicesInterface {
     private SeatBussinessServicesInterface seatServices;
 
     @Autowired
-    private UserRepoInterface UserRepo;
+    private UserRepoInterface userRepo;
 
     @Override
     public List<StudentModel> getTop15Students() {
         try {
-            List<StudentModel> students = studentRepo.findAll();
-            return students.stream()
+            return studentRepo.findAll().stream()
                     .sorted((s1, s2) -> {
                         int statusCompare = s1.getStatus().compareTo(s2.getStatus());
-                        return statusCompare == 0 ? Integer.compare(s1.getRank(), s2.getRank()) : statusCompare;
+                        if (statusCompare == 0) {
+                            return Integer.compare(s1.getRank(), s2.getRank());
+                        }
+                        return statusCompare;
                     })
                     .limit(15)
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            System.err.println("Error in getTop15Students: " + e.getMessage());
-            return Collections.emptyList();
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error fetching top students", e);
         }
     }
 
@@ -35,8 +54,7 @@ public class StudentServices implements StudentBussinessServicesInterface {
                     .sorted(Comparator.comparingInt(StudentModel::getRank))
                     .collect(Collectors.toList());
         } catch (Exception e) {
-            System.err.println("Error in getAllPendingStudents: " + e.getMessage());
-            return Collections.emptyList();
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error fetching pending students", e);
         }
     }
 
@@ -46,18 +64,20 @@ public class StudentServices implements StudentBussinessServicesInterface {
             List<StudentModel> students = studentRepo.findAll();
             for (StudentModel student : students) {
                 if (student.getEmail().equals(email)) {
-                    boolean value = seatServices.deleteSeat(student.getBranch());
-                    if (value) {
+                    boolean seatDeleted = seatServices.deleteSeat(student.getBranch());
+                    if (seatDeleted) {
                         student.setStatus("accept");
                         studentRepo.save(student);
                         return true;
+                    } else {
+                        throw new ResponseStatusException(BAD_REQUEST, "No available seat in " + student.getBranch());
                     }
                 }
             }
+            throw new ResponseStatusException(NOT_FOUND, "Student with email " + email + " not found");
         } catch (Exception e) {
-            System.err.println("Error in acceptStudent: " + e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error accepting student", e);
         }
-        return false;
     }
 
     @Override
@@ -71,10 +91,10 @@ public class StudentServices implements StudentBussinessServicesInterface {
                     return true;
                 }
             }
+            throw new ResponseStatusException(NOT_FOUND, "Student with email " + email + " not found");
         } catch (Exception e) {
-            System.err.println("Error in rejectStudent: " + e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error rejecting student", e);
         }
-        return false;
     }
 
     @Override
@@ -98,93 +118,100 @@ public class StudentServices implements StudentBussinessServicesInterface {
                     return true;
                 }
             }
+            throw new ResponseStatusException(NOT_FOUND, "Student not found");
         } catch (Exception e) {
-            System.err.println("Error in editStudentDetails: " + e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error editing student details", e);
         }
-        return false;
     }
 
     @Override
     public Map<String, Pair<StudentModel, Integer>> getStudentDetails(Map<String, String> requestData) {
-        Map<String, Pair<StudentModel, Integer>> studentData = new HashMap<>();
         try {
+            String requestEmail = requestData.get("email");
+            if (requestEmail == null) {
+                throw new ResponseStatusException(BAD_REQUEST, "Email is required");
+            }
+
+            Map<String, Pair<StudentModel, Integer>> studentData = new HashMap<>();
             List<StudentModel> students = studentRepo.findAll();
 
-            List<StudentModel> acceptedStudents = new ArrayList<>();
-            List<StudentModel> pendingStudents = new ArrayList<>();
-            List<StudentModel> rejectedStudents = new ArrayList<>();
+            List<StudentModel> accepted = new ArrayList<>();
+            List<StudentModel> pending = new ArrayList<>();
+            List<StudentModel> rejected = new ArrayList<>();
 
             for (StudentModel student : students) {
-                switch (student.getStatus()) {
+                switch (student.getStatus().toLowerCase()) {
                     case "accept":
-                        acceptedStudents.add(student);
+                        accepted.add(student);
                         break;
                     case "pending":
-                        pendingStudents.add(student);
+                        pending.add(student);
                         break;
-                    case "rejected":
-                        rejectedStudents.add(student);
+                    case "reject":
+                        rejected.add(student);
                         break;
                 }
             }
 
-            acceptedStudents.sort(Comparator.comparingInt(StudentModel::getRank));
-            pendingStudents.sort(Comparator.comparingInt(StudentModel::getRank));
-            rejectedStudents.sort(Comparator.comparingInt(StudentModel::getRank));
+            accepted.sort(Comparator.comparingInt(StudentModel::getRank));
+            pending.sort(Comparator.comparingInt(StudentModel::getRank));
+            rejected.sort(Comparator.comparingInt(StudentModel::getRank));
 
-            List<StudentModel> allSortedStudents = new ArrayList<>();
-            allSortedStudents.addAll(acceptedStudents);
-            allSortedStudents.addAll(pendingStudents);
-            allSortedStudents.addAll(rejectedStudents);
+            List<StudentModel> sorted = new ArrayList<>();
+            sorted.addAll(accepted);
+            sorted.addAll(pending);
+            sorted.addAll(rejected);
 
-            for (int i = 0; i < allSortedStudents.size(); i++) {
-                StudentModel student = allSortedStudents.get(i);
-                if (student.getEmail().equals(requestData.get("email"))) {
-                    studentData.put("student", new Pair<>(student, i + 1));
+            for (int i = 0; i < sorted.size(); i++) {
+                if (requestEmail.equals(sorted.get(i).getEmail())) {
+                    studentData.put("student", new Pair<>(sorted.get(i), i + 1));
                     return studentData;
                 }
             }
+
+            throw new ResponseStatusException(NOT_FOUND, "Student not found with email " + requestEmail);
         } catch (Exception e) {
-            System.err.println("Error in getStudentDetails: " + e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error fetching student details", e);
         }
-        return null;
     }
 
     @Override
+    @Transactional
     public boolean saveStudent(Map<String, String> requestData) {
         try {
-            if (requestData.get("email") != null) {
-                StudentModel student = new StudentModel();
-                UserModel user = new UserModel();
-
-                student.setEmail(requestData.get("email"));
-                student.setFullName(requestData.get("fullName"));
-                student.setPhoneno(requestData.get("phoneno"));
-                student.setRollno(requestData.get("rollno"));
-                student.setCategory(requestData.get("category"));
-                student.setAddress(requestData.get("address"));
-                student.setGender(requestData.get("gender"));
-                student.setBranch(requestData.get("branch"));
-                student.setStatus(requestData.get("status"));
-                student.setDate(LocalDate.parse(requestData.get("date")));
-                student.setFatherName(requestData.get("fatherName"));
-                student.setRank(Integer.parseInt(requestData.get("rank")));
-                student.setUser_id(null);
-
-                studentRepo.save(student);
-
-                user.setEmail(requestData.get("email"));
-                user.setPassword(requestData.get("password"));
-                user.setFullName(requestData.get("fullName"));
-                user.setRole(requestData.get("role"));
-
-                UserRepo.save(user);
-
-                return true;
+            if (requestData.get("email") == null) {
+                throw new ResponseStatusException(BAD_REQUEST, "Email is required");
             }
+
+            StudentModel student = new StudentModel();
+            UserModel user = new UserModel();
+
+            student.setEmail(requestData.get("email"));
+            student.setFullName(requestData.get("fullName"));
+            student.setPhoneno(requestData.get("phoneno"));
+            student.setRollno(requestData.get("rollno"));
+            student.setCategory(requestData.get("category"));
+            student.setAddress(requestData.get("address"));
+            student.setGender(requestData.get("gender"));
+            student.setBranch(requestData.get("branch"));
+            student.setStatus(requestData.get("status"));
+            student.setDate(LocalDate.parse(requestData.get("date")));
+            student.setFatherName(requestData.get("fatherName"));
+            student.setRank(Integer.parseInt(requestData.get("rank")));
+            student.setUser_id(null);
+
+            studentRepo.save(student);
+
+            user.setEmail(requestData.get("email"));
+            user.setPassword(requestData.get("password"));
+            user.setFullName(requestData.get("fullName"));
+            user.setRole(requestData.get("role"));
+
+            userRepo.save(user);
+
+            return true;
         } catch (Exception e) {
-            System.err.println("Error in saveStudent: " + e.getMessage());
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, "Error saving student", e);
         }
-        return false;
     }
 }
