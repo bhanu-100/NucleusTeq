@@ -38,3 +38,29 @@ def signin(user: schemas.UserLogin, db: Session = Depends(get_db)):
         "refresh_token": refresh_token,
         "token_type": "bearer"
     }
+
+@router.post("/forgot-password")
+def forgot_password(req: schemas.ForgotPasswordRequest, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.email == req.email).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+
+    token = utils.create_password_reset_token(db, user.id)
+
+    # Simulate sending email (log or print token for now)
+    print(f"Reset token for {req.email}: {token}")
+
+    return {"message": "Password reset token sent to your email"}
+
+@router.post("/reset-password")
+def reset_password(req: schemas.ResetPasswordRequest, db: Session = Depends(get_db)):
+    token_entry = utils.validate_password_reset_token(db, req.token)
+
+    user = db.query(models.User).filter_by(id=token_entry.user_id).first()
+    user.hashed_password = utils.hash_password(req.new_password)
+
+    token_entry.used = True
+
+    db.commit()
+
+    return {"message": "Password reset successful"}
