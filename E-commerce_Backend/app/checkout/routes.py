@@ -28,6 +28,11 @@ def checkout(db: Session = Depends(get_db), user=Depends(get_current_user)):
 
     for item in cart_items:
         product = db.query(product_models.Product).filter_by(id=item.product_id).first()
+
+        product.stock -= item.quantity
+        if product.stock < 0:
+            product.stock = 0
+            
         order_item = order_models.OrderItem(
             order_id=new_order.id,
             product_id=item.product_id,
