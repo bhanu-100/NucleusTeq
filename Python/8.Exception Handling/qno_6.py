@@ -1,3 +1,5 @@
+file_path = "/Users/bhanu/Documents/NucleusTeq/Python/8.Exception Handling/example.txt"
+
 class FileManager:
     def __init__(self, filename, mode):
         self.filename = filename
@@ -21,6 +23,6 @@ class FileManager:
         # Returning False lets exception propagate if needed
         return True  # Suppresses the exception (set to False to re-raise)
 
-with FileManager("example.txt", "r") as f:
+with FileManager(file_path, "r") as f:
     if f:
         print(f.read())
